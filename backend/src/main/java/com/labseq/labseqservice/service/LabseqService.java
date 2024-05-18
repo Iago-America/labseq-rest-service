@@ -17,6 +17,8 @@ public class LabseqService {
         cache.put(3, 1L);
     }
     public Long getLabseqValue(int n) {
+        validateInputValue(n);
+
         if (cache.containsKey(n)) {
             return cache.get(n);
         } else {
@@ -28,4 +30,14 @@ public class LabseqService {
             return value;
         }
     }
+
+    private void validateInputValue(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("The index may be any non negative integer number.");
+        }
+        if (n > 10000) {
+            throw new IllegalArgumentException("The index can be any number less than 10000.");
+        }
+    }
+
 }
