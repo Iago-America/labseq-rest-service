@@ -1,31 +1,27 @@
 package com.labseq.labseqservice.service;
 
 import com.labseq.labseqservice.exception.InvalidInputException;
+import com.labseq.labseqservice.utils.CacheMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
+
 @Service
 public class LabseqService {
+    @Autowired
+    private CacheMap cacheMap;
 
-    private static final Map<Integer, BigInteger> cache = new HashMap<>();
-
-    static {
-        cache.put(0, BigInteger.ZERO);
-        cache.put(1, BigInteger.ONE);
-        cache.put(2, BigInteger.ZERO);
-        cache.put(3, BigInteger.ONE);
-    }
-
+    @Cacheable("labseq")
     public BigInteger getLabseqValue(int n) {
         validateInputValue(n);
 
-        if (cache.containsKey(n)) {
-            return cache.get(n);
+        if (cacheMap.getCache().containsKey(n)) {
+            return cacheMap.getCache().get(n);
         } else {
             BigInteger value = getLabseqValue(n - 4).add(getLabseqValue(n - 3));
-            cache.put(n, value);
+            cacheMap.getCache().put(n, value);
             return value;
         }
     }
