@@ -3,31 +3,29 @@ package com.labseq.labseqservice.service;
 import com.labseq.labseqservice.exception.InvalidInputException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 @Service
 public class LabseqService {
 
-    private final Map<Integer, Long> cache;
+    private static final Map<Integer, BigInteger> cache = new HashMap<>();
 
-    public LabseqService() {
-        cache = new HashMap<>();
-        cache.put(0, 0L);
-        cache.put(1, 1L);
-        cache.put(2, 0L);
-        cache.put(3, 1L);
+    static {
+        cache.put(0, BigInteger.ZERO);
+        cache.put(1, BigInteger.ONE);
+        cache.put(2, BigInteger.ZERO);
+        cache.put(3, BigInteger.ONE);
     }
-    public Long getLabseqValue(int n) {
+
+    public BigInteger getLabseqValue(int n) {
         validateInputValue(n);
 
         if (cache.containsKey(n)) {
             return cache.get(n);
         } else {
-
-            Long value = getLabseqValue(n - 4) + (getLabseqValue(n - 3));
-
+            BigInteger value = getLabseqValue(n - 4).add(getLabseqValue(n - 3));
             cache.put(n, value);
-
             return value;
         }
     }
