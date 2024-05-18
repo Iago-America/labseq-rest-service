@@ -11,7 +11,7 @@ export class LabseqHttpService {
 
   constructor(private http: HttpClient) { }
 
-  getLabseqValue(number: number): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/${number}`);
+  getLabseqValue(number: number): Observable<string> {
+    return this.http.get<string>(`${this.apiUrl}/${number}`);
   }
 }

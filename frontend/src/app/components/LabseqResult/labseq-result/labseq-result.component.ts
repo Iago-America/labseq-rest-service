@@ -22,14 +22,11 @@ export class LabseqResultComponent implements OnInit {
   getLabseqValue() {
     this.apiService.getLabseqValue(this.inputNumber).subscribe(
       response => {
-        if (isFinite(response)) {
-          this.getPost = response.toString();
-        } else {
-          this.getPost = "Number too large to be represented";
-        }
+        this.getPost = response;
       },
       error => {
-        console.error('Error fetching Labseq value', error);
+        console.error('Number too large to be represented', error);
+        this.getPost = "Error fetching Labseq value";
       }
     );
   }
