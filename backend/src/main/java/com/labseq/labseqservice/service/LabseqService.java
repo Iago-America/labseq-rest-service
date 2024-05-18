@@ -1,5 +1,6 @@
 package com.labseq.labseqservice.service;
 
+import com.labseq.labseqservice.exception.InvalidInputException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -33,11 +34,10 @@ public class LabseqService {
 
     private void validateInputValue(int n) {
         if (n < 0) {
-            throw new IllegalArgumentException("The index may be any non negative integer number.");
+            throw new InvalidInputException("The index may be any non negative integer number.");
         }
         if (n > 10000) {
-            throw new IllegalArgumentException("The index can be any number less than 10000.");
+            throw new InvalidInputException("The index can be any number less than 10000.");
         }
     }
-
 }
