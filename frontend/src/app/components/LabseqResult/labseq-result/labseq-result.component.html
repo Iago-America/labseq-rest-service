@@ -1,0 +1,13 @@
+<div class="classic">
+  <div class="container">
+    <h1>Labseq Sequence</h1>
+    <div class="input-section">
+      <label for="numberInput">Insira um número:</label>
+      <input type="number" id="numberInput" [(ngModel)]="inputNumber" class="input-field">
+      <button (click)="getLabseqValue()" class="btn">Buscar Valor</button>
+    </div>
+    <div *ngIf="getPost !== undefined" class="result-section">
+      <h2>Resultado: {{ getPost }}</h2>
+    </div>
+  </div>
+</div>
