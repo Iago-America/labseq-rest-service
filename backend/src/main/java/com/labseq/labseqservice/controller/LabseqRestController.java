@@ -16,9 +16,9 @@ public class LabseqRestController {
     private LabseqService labseqService;
 
     @GetMapping("/{number}")
-    public ResponseEntity<BigInteger> getLabseqResult(@PathVariable("number") int number) {
+    public ResponseEntity<String> getLabseqResult(@PathVariable("number") int number) {
         BigInteger result = labseqService.getLabseqValue(number);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result.toString(), HttpStatus.OK);
     }
 
 }
